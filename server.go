@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 )
 
 func main() {
@@ -15,5 +16,7 @@ func main() {
 }
 
 func Hello(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("<h1>Hello Full Cycle</h1>"))
+	name := os.Getenv("NAME")
+	age := os.Getenv("AGE")
+	w.Write([]byte(fmt.Sprintf("Hello, my name is %s, and I am %s years old", name, age)))
 }
