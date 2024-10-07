@@ -17,6 +17,15 @@ spec:
       containers:
         - name: "goserver"
           image: "kaiquecaires/go-server:v8"
+
+          resources:
+            requests: # min, reservando esses recursos
+              cpu: 100m #1000 milicores
+              memory: 20Mi
+            limits:
+              cpu: 500m
+              memory: 25Mi
+
           startupProbe:
             httpGet:
               path: /healthz
