@@ -16,7 +16,29 @@ spec:
     spec:
       containers:
         - name: "goserver"
-          image: "kaiquecaires/go-server:v4"
+          image: "kaiquecaires/go-server:v8"
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            periodSeconds: 3
+            failureThreshold: 30
+
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            periodSeconds: 5
+            failureThreshold: 3
+            timeoutSeconds: 1
+            successThreshold: 1
+
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            periodSeconds: 1
+            failureThreshold: 1
           envFrom:
             - configMapRef:
                 name: goserver-env
