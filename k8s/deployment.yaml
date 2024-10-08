@@ -8,7 +8,7 @@ spec:
   selector:
     matchLabels:
       app: goserver
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: "goserver"
-          image: "kaiquecaires/go-server:v8"
+          image: "kaiquecaires/go-server:v9"
 
           resources:
             requests: # min, reservando esses recursos
@@ -56,11 +56,17 @@ spec:
           volumeMounts:
             - mountPath: "/app/myfamily"
               name: config
+            - mountPath: "/app/pvc"
+              name: goserver-pvc
+
       volumes:
+        - name: goserver-pvc
+          persistentVolumeClaim:
+            claimName: goserver-pvc
+
         - name: config
           configMap:
             name: configmap-family
             items:
               - key: members
                 path: "family.txt"
-

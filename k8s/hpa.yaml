@@ -6,7 +6,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     name: goserver
-    kind: Deployments
-  minReplicas: 2
+    kind: Deployment
+  minReplicas: 1
   maxReplicas: 5
-  targetCPUUtilizationPercentage: 30
+  targetCPUUtilizationPercentage: 15
